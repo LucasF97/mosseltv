@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+<head>
+	<title>MosselTV Manager</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/manager_list.css') }}">
+</head>
+<body>
+	<h1>MosselTV&trade; Manager</h1>
+	<div id="tables-list"></div>
+	<div id="modal" class="modal" style="display:none">
+		<div class="modal-content">
+			<span id="modal-close" class="close">&times;</span>
+			<h2 id="modal-title">Tafel X</h2>
+			<label for="modal-status">Status:</label>
+			<select id="modal-status">
+				<option value="idle">Idle</option>
+				<option value="almost_ready">Almost ready</option>
+				<option value="ready">Ready</option>
+			</select>
+			<button id="modal-save">Bevestigen</button>
+	<script src="{{ url_for('static', filename='js/socket.io.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/manager_list.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+<head>
+	<title>MosselTV Manager</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/manager.css') }}">
+</head>
+<body>
+	<h1>MosselTV&trade; Manager</h1>
+	<div>
+		<label for="table-select">Tafel:</label>
+		<select id="table-select"></select>
+	</div>
+	<div>
+		<label for="status-select">Status:</label>
+		<select id="status-select">
+			<option value="idle">Idle</option>
+			<option value="almost_ready">Almost ready</option>
+			<option value="ready">Ready</option>
+		</select>
+	</div>
+	<button id="set-status-btn">Bevestigen</button>
+	<div id="message"></div>
+	<script src="{{ url_for('static', filename='js/socket.io.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/manager.js') }}"></script>
+</body>
+</html>

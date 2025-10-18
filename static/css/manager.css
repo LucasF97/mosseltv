@@ -1,0 +1,3 @@
+body { font-family: sans-serif; padding: 20px; }
+select, button { font-size: 1.2em; margin: 10px }
+#message { margin-top: 20px; font-weight: bold; }

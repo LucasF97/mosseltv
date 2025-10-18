@@ -1,0 +1,49 @@
+document.addEventListener('DOMContentLoaded', function() {
+    var socket = io();
+
+    var tablesList = document.getElementById('tables-list');
+    var modal = document.getElementById('modal');
+    var modalTitle = document.getElementById('modal-title');
+    var modalStatus = document.getElementById('modal-status');
+    var modalSave = document.getElementById('modal-save');
+    var modalClose = document.getElementById('modal-close');
+
+    var currentTable = null;
+
+    socket.on('connect', function() {
+        socket.emit('get_status');
+    });
+
+    // Status update ontvangen
+    socket.on('status_update', function(data){
+        tablesList.innerHTML = '';
+        for (var table in data){
+            var btn = document.createElement('button');
+            btn.className = 'table-btn ' + data[table];
+            btn.innerText = table;
+            btn.addEventListener('click', function(e){
+                currentTable = e.target.innerText;
+                modalTitle.innerText = 'Tafel ' + currentTable;
+                modalStatus.value = data[currentTable];
+                modal.style.display = 'flex';
+            });
+            tablesList.appendChild(btn);
+        }
+    });
+
+    modalSave.addEventListener('click', function(){
+        var status = modalStatus.value;
+        fetch(`/set/${currentTable}/${status}`)
+            .then(response => response.text())
+            .then(text => { 
+                console.log(text);
+                modal.style.display = 'none';
+            })
+            .catch(err => console.log('Error: ', err));
+    });
+
+    modalClose.addEventListener('click', function(){
+        modal.style.display = 'none';
+    });
+});
+

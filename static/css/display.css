@@ -1,0 +1,4 @@
+.table {font-size: 2em; margin: 10px; padding: 10px; display: inline-block; width: 150px; text-align: center; border-radius: 10px; }
+.idle {background-color: white; color:black;}
+.almost_ready { background-color: orange; color: black;}
+.ready { background-color: green; color: black}
