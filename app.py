@@ -1,5 +1,11 @@
 from flask import Flask, render_template, abort
 from flask_socketio import SocketIO, emit
+import webbrowser
+import threading
+import time
+import subprocess
+import signal
+import atexit
 
 # start flask-app en websocket
 app = Flask(__name__)
@@ -47,9 +53,26 @@ def set_status(table, status):
 def handle_get_status():
     emit('status_update', tables)
 
+firefox_proc = None
+def open_browser():
+    #time.sleep(1)
+    #webbrowser.open_new_tab("http://127.0.0.1:5000/display")
+    time.sleep(0.5)
+    firefox_proc = subprocess.Popen(
+            ["firefox", "--kiosk", "http://127.0.0.1:5000/display"]
+    )
+    def cleanup():
+        print("stopping firefox")
+        firefox_proc.terminate()
+        firefox_proc.wait(timeout=2)
+    atexit.register(cleanup)
+
+
 # start server (voorlopig enkel op loopback adres)
 # TODO: laat ook andere (lokale) adressen toe
 if __name__ == "__main__":
     import eventlet
     import eventlet.wsgi
+    threading.Thread(target=open_browser).start()
+
     socketio.run(app, host="127.0.0.1", port=5000, debug=True)
