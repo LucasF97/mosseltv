@@ -7,7 +7,7 @@ __pycache__/
 
 # Virtual environments
 venv/
-.env/
+.venv/
 
 # IDE
 .vscode/
@@ -16,3 +16,8 @@ venv/
 # OS
 .DS_Store
 Thumbs.db
+
+# Environment variables / secrets
+.env
+*.env
+!.env.example
