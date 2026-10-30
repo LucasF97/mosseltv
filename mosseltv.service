@@ -1,0 +1,14 @@
+[Unit]
+Description=MosselTV Server
+After=network.target graphical.target
+
+[Service]
+User=lucas
+Environment=DISPLAY=:0
+WorkingDirectory=/home/lucas/mosseltv
+ExecStart=/home/lucas/mosseltv/start.sh
+Restart=always
+KillMode=control-group
+
+[Install]
+WantedBy=graphical.target

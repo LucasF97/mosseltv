@@ -1,0 +1,40 @@
+.table-btn {
+	font-size: 2em;
+	margin: 10px;
+	padding: 10px;
+	width: 100px;
+	border-radius: 10px;
+	cursor: pointer;
+}
+
+.idle { background-color: white; color: black; }
+.almost_ready { background-color: orange; color: black; }
+.ready { background-color: green; color: black; }
+
+.modal {
+	position: fixed;
+	top: 0; left: 0; right: 0; bottom: 0;
+	background: rgba(0, 0, 0, 0.4);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	pointer-events: auto;
+}
+
+.modal-content {
+	background: white;
+	padding: 20px;
+	border-radius: 10px;
+	text-align: center;
+	cursor: default;
+}
+
+.status-btn {
+	margin: 10px;
+	padding: 15px 25px;
+	font-size: 1.2em;
+	border: none;
+	border-radius: 10px;
+	cursor: pointer;
+}
+

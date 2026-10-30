@@ -13,7 +13,7 @@ socketio = SocketIO(app, cors_allowed_origins="*")
 
 # tafel status (voorlopig dict, later JSON-bestand)
 # TODO: sla status op in een bestand ipv memory
-tables = {i: "idle" for i in range(1, 27)}
+tables = {i: "idle" for i in range(1, 31)}
 
 # index-pagina (normaal niet gebruikt)
 # TODO: voeg hier links toe naar de paginas die wel gebruikt worden
