@@ -1,11 +1,11 @@
-from flask import Flask, render_template, abort
-from flask_socketio import SocketIO, emit
-import webbrowser
+import os
+import atexit
+import subprocess
 import threading
 import time
-import subprocess
-import signal
-import atexit
+
+from flask import Flask, render_template, abort
+from flask_socketio import SocketIO, emit
 
 # start flask-app en websocket
 app = Flask(__name__)
@@ -54,17 +54,33 @@ def handle_get_status():
     emit('status_update', tables)
 
 firefox_proc = None
+
 def open_browser():
-    #time.sleep(1)
-    #webbrowser.open_new_tab("http://127.0.0.1:5000/display")
     time.sleep(0.5)
-    firefox_proc = subprocess.Popen(
-            ["firefox", "--kiosk", "http://127.0.0.1:5000/display"]
-    )
+    if not os.environ.get("DISPLAY"):
+        print("No DISPLAY set; skipping Firefox kiosk launch.")
+        return
+
+    global firefox_proc
+    try:
+        firefox_proc = subprocess.Popen([
+            "firefox",
+            "--kiosk",
+            "http://127.0.0.1:5000/display",
+        ])
+    except FileNotFoundError:
+        print("firefox not found; kiosk browser not started.")
+        return
+
     def cleanup():
-        print("stopping firefox")
-        firefox_proc.terminate()
-        firefox_proc.wait(timeout=2)
+        if firefox_proc and firefox_proc.poll() is None:
+            print("stopping firefox")
+            firefox_proc.terminate()
+            try:
+                firefox_proc.wait(timeout=2)
+            except subprocess.TimeoutExpired:
+                firefox_proc.kill()
+
     atexit.register(cleanup)
 
 

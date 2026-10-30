@@ -1,14 +1,18 @@
 [Unit]
 Description=MosselTV Server
-After=network.target graphical.target
+After=network-online.target
+Wants=network-online.target
 
 [Service]
-User=lucas
-Environment=DISPLAY=:0
-WorkingDirectory=/home/lucas/mosseltv
-ExecStart=/home/lucas/mosseltv/start.sh
+Type=simple
+User=@APP_USER@
+Group=@APP_USER@
+Environment=DISPLAY=:99
+WorkingDirectory=@APP_DIR@
+ExecStart=@APP_DIR@/start.sh
 Restart=always
+RestartSec=5
 KillMode=control-group
 
 [Install]
-WantedBy=graphical.target
+WantedBy=multi-user.target
